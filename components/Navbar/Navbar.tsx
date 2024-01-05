@@ -11,7 +11,6 @@ const Navbar = () => {
           <Image
             alt="Frontend Arena Logo"
             src="./shield.svg"
-            // className="mr-2"
             width={30}
             height={30}
           />
