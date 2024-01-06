@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 const Navbar = () => {
   return (
-    <header className="py-4">
+    <header className="py-4 border-b">
       <div className="container flex justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -17,11 +17,11 @@ const Navbar = () => {
           <span>Frontend Arena</span>
         </Link>
         <Menu />
-        <div className="flex gap-8">
+        <div className="hidden lg:flex gap-8">
           <Button className="py-2 px-4 bg-indigo-400 hover:bg-indigo-600 rounded-md text-white">
             <Link href="register">Sign up</Link>
           </Button>
-          <Button variant="ghost">
+          <Button>
             <Link href="login">Login</Link>
           </Button>
         </div>

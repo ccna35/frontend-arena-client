@@ -16,31 +16,77 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const formSchema = z.object({
-  firstName: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
-  }),
-  lastName: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  email: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must be at least 8 characters.",
-    })
-    .max(20, {
-      message: "Password must be less than 20 characters.",
-    }),
-  confirmPassword: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+const formSchema = z
+  .object({
+    firstName: z
+      .string()
+      .min(2, {
+        message: "First name must be at least 2 characters.",
+      })
+      .max(20, {
+        message: "First name must be less than or equal to 20 characters.",
+      })
+      .trim(),
+    lastName: z
+      .string()
+      .min(2, {
+        message: "Last name must be at least 2 characters.",
+      })
+      .max(20, {
+        message: "Last name must be less than or equal to 20 characters.",
+      })
+      .trim(),
+    username: z
+      .string()
+      .regex(/^[a-zA-Z0-9_]+$/, {
+        message: "Only letters, numbers and underscores are allowed!",
+      })
+      .min(2, {
+        message: "Username must be at least 2 characters.",
+      })
+      .max(20, {
+        message: "Username must be less than or equal to 20 characters.",
+      })
+      .trim(),
+    email: z
+      .string()
+      .min(2, {
+        message: "Email is required",
+      })
+      .max(50, {
+        message: "Email must be less than or equal to 50 characters.",
+      })
+      .email({ message: "Email must be valid" })
+      .trim(),
+    password: z
+      .string()
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/, {
+        message:
+          "Password should have at least one uppercase letter, one lowercase and one special character",
+      })
+      .min(8, {
+        message: "Password must be at least 8 characters.",
+      })
+      .max(20, {
+        message: "Password must be less than or equal to 20 characters.",
+      }),
+    confirmPassword: z
+      .string()
+      .min(2, {
+        message: "Username must be at least 2 characters.",
+      })
+      .max(20, {
+        message: "Password must be less than or equal to 20 characters.",
+      }),
+  })
+  .refine(
+    ({ password, confirmPassword, username }) =>
+      password === confirmPassword && !username.includes(" "),
+    {
+      message: "Passwords don't match",
+      path: ["confirmPassword"],
+    }
+  );
 
 export function RegisterForm() {
   // 1. Define your form.
@@ -48,7 +94,13 @@ export function RegisterForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
+    mode: "onChange",
   });
 
   // 2. Define a submit handler.
@@ -62,7 +114,7 @@ export function RegisterForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 border border-slate-300 rounded-lg p-8"
+        className="border border-slate-300 rounded-lg p-8 grid sm:grid-cols-2 gap-8 w-full md:w-[40rem]"
       >
         <FormField
           control={form.control}
@@ -71,7 +123,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>First name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} type="text" />
+                <Input placeholder="John" {...field} type="text" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,7 +136,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Last name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} type="text" />
+                <Input placeholder="Doe" {...field} type="text" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -97,7 +149,7 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} type="text" />
+                <Input placeholder="johndoe" {...field} type="text" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -110,7 +162,11 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email address" {...field} type="email" />
+                <Input
+                  placeholder="johndoe@example.com"
+                  {...field}
+                  type="email"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,7 +179,11 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} type="password" />
+                <Input
+                  placeholder="Your password here"
+                  {...field}
+                  type="password"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -137,7 +197,7 @@ export function RegisterForm() {
               <FormLabel>Confirm password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Confirm password"
+                  placeholder="Enter your password again"
                   {...field}
                   type="password"
                 />
@@ -146,7 +206,9 @@ export function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-accent">
+          Sign up
+        </Button>
       </form>
     </Form>
   );
