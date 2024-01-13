@@ -8,13 +8,16 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { UserService } from "@/services/UserService";
+import { Loader2 } from "lucide-react";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z
   .object({
@@ -89,7 +92,9 @@ const formSchema = z
   );
 
 export function RegisterForm() {
-  // 1. Define your form.
+  const queryClient = useQueryClient();
+
+  // 1. Define registration form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -103,11 +108,31 @@ export function RegisterForm() {
     mode: "onChange",
   });
 
+  const { toast } = useToast();
+
+  const { mutateAsync: createUser, isPending } = useMutation({
+    mutationFn: UserService.signup,
+    onSuccess: () => {
+      toast({
+        description: "Your account was created successfully.",
+        variant: "success",
+      });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onError(error) {
+      console.log(error);
+      toast({
+        description: error.response.data,
+        variant: "destructive",
+      });
+    },
+  });
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    createUser(values);
   }
 
   return (
@@ -206,7 +231,12 @@ export function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-accent">
+        <Button
+          type="submit"
+          className="bg-accent disabled:bg-indigo-950"
+          disabled={isPending}
+        >
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Sign up
         </Button>
       </form>

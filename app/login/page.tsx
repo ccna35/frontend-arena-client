@@ -1,7 +1,6 @@
 import { LoginForm } from "@/components/Login Page/Form";
-import Image from "next/image";
 
-export default function Team() {
+export default function Login() {
   return (
     <main className="py-24">
       <div className="container flex flex-col items-center justify-between ">

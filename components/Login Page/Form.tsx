@@ -8,13 +8,17 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { UserService } from "@/services/UserService";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "../ui/use-toast";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z
@@ -43,11 +47,30 @@ export function LoginForm() {
     mode: "onChange",
   });
 
+  const { toast } = useToast();
+
+  const router = useRouter();
+
+  const { mutateAsync: loginUser, isPending } = useMutation({
+    mutationFn: UserService.login,
+    onSuccess: () => {
+      router.push("/home");
+    },
+    onError(error) {
+      console.log(error);
+      toast({
+        description: error.response.data,
+        variant: "destructive",
+      });
+    },
+  });
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    loginUser(values);
   }
 
   return (
@@ -91,7 +114,12 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit" className="bg-accent">
+        <Button
+          type="submit"
+          className="bg-accent disabled:bg-indigo-950"
+          disabled={isPending}
+        >
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Log in
         </Button>
       </form>

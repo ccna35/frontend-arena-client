@@ -1,7 +1,6 @@
 import { RegisterForm } from "@/components/Register Page/Form";
-import Image from "next/image";
 
-export default function Team() {
+export default function Register() {
   return (
     <main className="py-24">
       <div className="container flex flex-col items-center justify-between ">
