@@ -8,3 +8,17 @@ export type User = {
   confirmPassword?: string;
   createdAt?: string;
 };
+
+export type Challenge = {
+  challenge_title: string;
+  id: number;
+  createdAt: string;
+  challenge_description: string;
+  extra_tips: string;
+  figma: string;
+  featured_image: string;
+  levelName: string;
+  brief_description: string;
+  challenge_images: string;
+  languages: string;
+};
