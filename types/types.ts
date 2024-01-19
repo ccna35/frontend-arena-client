@@ -22,3 +22,10 @@ export type Challenge = {
   challenge_images: string;
   languages: string;
 };
+
+export type QuickStats = {
+  challenges_count: number;
+  users_count: number;
+  feedbacks_count: number;
+  submissions_count: number;
+};

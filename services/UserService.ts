@@ -1,13 +1,5 @@
+import { query } from "@/config/config";
 import { User } from "@/types/types";
-import axios from "axios";
-
-const query = axios.create({
-  baseURL: "http://localhost:8000/api",
-  headers: {
-    "Content-type": "application/json",
-  },
-  withCredentials: true,
-});
 
 const getAllUsers = async (page: number = 0): Promise<User[]> => {
   const res = await query.get(`users?page=${page}`);

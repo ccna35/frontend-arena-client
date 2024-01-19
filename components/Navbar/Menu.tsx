@@ -3,6 +3,7 @@ import Link from "next/link";
 export function Menu() {
   return (
     <nav className="hidden lg:flex gap-8 items-center">
+      <Link href="/dashboard">Dashboard</Link>
       <Link href="/challenges">Challenges</Link>
       <Link href="/submissions">Submissions</Link>
       <Link
