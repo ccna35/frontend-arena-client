@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <section className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
         <h1 className="text-3xl font-semibold">Welcome to your dashboard</h1>
         <h2 className="text-xl font-semibold">
@@ -12,6 +12,6 @@ export default function Home() {
           Still working on it, please bear with us...
         </p>
       </div>
-    </main>
+    </section>
   );
 }

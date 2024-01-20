@@ -40,10 +40,10 @@ export function LoginForm() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    // defaultValues: {
+    //   email: "",
+    //   password: "",
+    // },
     mode: "onChange",
   });
 

@@ -97,14 +97,6 @@ export function RegisterForm() {
   // 1. Define registration form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   username: "",
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
     mode: "onChange",
   });
 
