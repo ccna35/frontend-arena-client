@@ -6,54 +6,37 @@ import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { buttonVariants } from "../ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
 
 interface NavProps {
-  isCollapsed: boolean;
   links: {
     title: string;
     label?: string;
     icon: LucideIcon;
     variant: "default" | "ghost";
-    href: string;
+    href?: string;
+    children?: {
+      title: string;
+      label?: string;
+      icon: LucideIcon;
+      variant: "default" | "ghost";
+      href: string;
+    }[];
   }[];
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
+export function Nav({ links }: NavProps) {
   return (
-    <div
-      data-collapsed={isCollapsed}
-      className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2"
-    >
-      <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
-        {links.map((link, index) =>
-          isCollapsed ? (
-            <Tooltip key={index} delayDuration={0}>
-              <TooltipTrigger asChild>
-                <Link
-                  href={link.href}
-                  className={cn(
-                    buttonVariants({ variant: link.variant, size: "icon" }),
-                    "h-9 w-9",
-                    link.variant === "default" &&
-                      "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
-                  )}
-                >
-                  <link.icon className="h-4 w-4" />
-                  <span className="sr-only">{link.title}</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right" className="flex items-center gap-4">
-                {link.title}
-                {link.label && (
-                  <span className="ml-auto text-muted-foreground">
-                    {link.label}
-                  </span>
-                )}
-              </TooltipContent>
-            </Tooltip>
-          ) : (
+    <div className="group flex flex-col gap-4 py-2">
+      <nav className="grid gap-1 px-2">
+        {links.map((link) => {
+          return link.href ? (
             <Link
-              key={index}
+              key={link.title}
               href={link.href}
               className={cn(
                 buttonVariants({ variant: link.variant, size: "sm" }),
@@ -63,21 +46,45 @@ export function Nav({ links, isCollapsed }: NavProps) {
               )}
             >
               <link.icon className="mr-2 h-4 w-4" />
-              {link.title}
-              {link.label && (
-                <span
+              <span>{link.title}</span>
+            </Link>
+          ) : (
+            <Collapsible>
+              <CollapsibleTrigger>
+                <div
                   className={cn(
-                    "ml-auto",
+                    buttonVariants({ variant: link.variant, size: "sm" }),
                     link.variant === "default" &&
-                      "text-background dark:text-white"
+                      "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+                    "justify-start"
                   )}
                 >
-                  {link.label}
-                </span>
-              )}
-            </Link>
-          )
-        )}
+                  <link.icon className="mr-2 h-4 w-4" />
+                  <span>{link.title}</span>
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                {link.children?.map((link) => {
+                  return (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className={cn(
+                        buttonVariants({ variant: link.variant, size: "sm" }),
+                        link.variant === "default" &&
+                          "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+                        "ml-4 justify-start flex"
+                      )}
+                    >
+                      <link.icon className="inline-block mr-2 h-4 w-4" />
+                      <span className="inline-block">{link.title}</span>
+                    </Link>
+                  );
+                })}
+              </CollapsibleContent>
+            </Collapsible>
+          );
+        })}
       </nav>
     </div>
   );

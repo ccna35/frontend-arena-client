@@ -21,6 +21,8 @@ import {
   ShoppingCart,
   Trash2,
   Users2,
+  List,
+  Plus,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
@@ -29,7 +31,14 @@ const pages: {
   label?: string;
   icon: LucideIcon;
   variant: "default" | "ghost";
-  href: string;
+  href?: string;
+  children?: {
+    title: string;
+    label?: string;
+    icon: LucideIcon;
+    variant: "default" | "ghost";
+    href: string;
+  }[];
 }[] = [
   {
     title: "Home",
@@ -43,7 +52,22 @@ const pages: {
     label: "9",
     icon: File,
     variant: "ghost",
-    href: "/dashboard/challenges",
+    children: [
+      {
+        title: "Challenges List",
+        label: "19",
+        icon: List,
+        variant: "ghost",
+        href: "/dashboard/challenges",
+      },
+      {
+        title: "New Challenge",
+        label: "",
+        icon: Plus,
+        variant: "ghost",
+        href: "/dashboard/challenges/new",
+      },
+    ],
   },
   {
     title: "Users",
@@ -69,38 +93,13 @@ const pages: {
 ];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const defaultLayout = [265, 440, 655];
-
   return (
-    <TooltipProvider delayDuration={0}>
-      <ResizablePanelGroup
-        direction="horizontal"
-        onLayout={(sizes: number[]) => {
-          document.cookie = `react-resizable-panels:layout=${JSON.stringify(
-            sizes
-          )}`;
-        }}
-        className="h-full items-stretch"
-      >
-        <ResizablePanel
-          defaultSize={defaultLayout[0]}
-          collapsedSize={4}
-          minSize={15}
-          maxSize={20}
-          className={cn("py-8", {
-            "min-w-[50px] transition-all duration-300 ease-in-out": isCollapsed,
-          })}
-        >
-          <Nav isCollapsed={isCollapsed} links={pages} />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-          {children}
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </TooltipProvider>
+    <div className="grid grid-cols-[300px_1fr]">
+      <div className="">
+        <Nav links={pages} />
+      </div>
+      <main className="">{children}</main>
+    </div>
   );
 };
 

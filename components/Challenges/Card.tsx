@@ -10,6 +10,7 @@ import {
 import { Challenge } from "@/types/types";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 
 type ChallengeCardProps = {
   challenge: Omit<Challenge, "id">;
@@ -34,21 +35,27 @@ const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
     <Card className="rounded-md overflow-hidden">
       <CardHeader className="p-0">
         <div className="h-48 relative">
-          <Image
-            src={featured_image}
-            // width={100}
-            // height={100}
-            fill
-            alt={challenge_title}
-          />
+          <Image src={featured_image} alt={challenge_title} fill />
         </div>
         <div className="p-6">
-          <CardTitle>{challenge_title}</CardTitle>
+          <CardTitle className="text-xl font-medium">
+            {challenge_title}
+          </CardTitle>
           <CardDescription>{brief_description}</CardDescription>
         </div>
       </CardHeader>
       <CardContent>
-        <Badge variant={"default"}>{levelName}</Badge>
+        <Badge
+          variant={
+            levelName === "Easy"
+              ? "easy"
+              : levelName === "Medium"
+              ? "medium"
+              : "destructive"
+          }
+        >
+          {levelName}
+        </Badge>
       </CardContent>
       <CardFooter className="flex gap-2">
         {languages != null &&

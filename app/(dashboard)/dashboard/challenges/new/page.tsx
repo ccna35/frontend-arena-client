@@ -2,16 +2,15 @@ import { NewChallengeForm } from "@/components/Dashboard/Challenges/NewChallenge
 import Image from "next/image";
 import { useState } from "react";
 
-const Challenges = () => {
+const NewChallenge = () => {
   return (
     <section className="p-8">
       <div className="mb-8">
-        <h2 className="text-xl font-semibold">
-          View the latest challenges here
-        </h2>
+        <h2 className="text-xl font-semibold">Add a new challenge</h2>
       </div>
+      <NewChallengeForm />
     </section>
   );
 };
 
-export default Challenges;
+export default NewChallenge;

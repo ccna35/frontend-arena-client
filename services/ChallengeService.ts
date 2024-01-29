@@ -9,8 +9,10 @@ type NewChallenge = {
   challenge_languages: string;
   difficulty_level: string;
   figma: string;
-  featured: string;
-  desktop: string;
+  featured_image: File;
+  desktop_image: File;
+  tablet_image?: File;
+  smartphone_image?: File;
 };
 
 const getAllChallenges = async (): Promise<Challenge[]> => {
@@ -21,8 +23,12 @@ const getAllChallenges = async (): Promise<Challenge[]> => {
   return res.data;
 };
 
-const createChallenge = async (): Promise<NewChallenge> => {
-  const res = await query.post("/challenges");
+const createChallenge = async (values: FormData): Promise<Challenge> => {
+  const res = await query.post("/challenges", values, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   console.log(res);
 

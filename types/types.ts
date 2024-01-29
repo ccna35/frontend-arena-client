@@ -10,17 +10,20 @@ export type User = {
 };
 
 export type Challenge = {
-  challenge_title: string;
   id: number;
+  challenge_title: string;
   createdAt: string;
   challenge_description: string;
   extra_tips: string;
   figma: string;
-  featured_image: string;
   levelName: string;
   brief_description: string;
   challenge_images: string;
   languages: string;
+  featured_image: string;
+  desktop_image: string;
+  tablet__image: string;
+  smartphone__image: string;
 };
 
 export type QuickStats = {
