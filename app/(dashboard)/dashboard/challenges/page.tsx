@@ -1,15 +1,12 @@
-import { NewChallengeForm } from "@/components/Dashboard/Challenges/NewChallenge";
-import Image from "next/image";
-import { useState } from "react";
+import CardsDataTable from "@/components/Tables/Table";
 
 const Challenges = () => {
   return (
     <section className="p-8">
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold">
-          View the latest challenges here
-        </h2>
-      </div>
+      <h2 className="text-xl font-semibold mb-8">
+        View the latest challenges here
+      </h2>
+      <CardsDataTable />
     </section>
   );
 };
