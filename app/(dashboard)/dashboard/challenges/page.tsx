@@ -7,6 +7,7 @@ const Challenges = () => {
         View the latest challenges here
       </h2>
       <CardsDataTable />
+      {/* <SimpleTable /> */}
     </section>
   );
 };

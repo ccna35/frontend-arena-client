@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { LucideIcon } from "lucide-react";
+import { ChevronDown, LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { buttonVariants } from "../ui/button";
 import {
   Collapsible,
@@ -42,7 +41,7 @@ export function Nav({ links }: NavProps) {
                 buttonVariants({ variant: link.variant, size: "sm" }),
                 link.variant === "default" &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                "justify-start"
+                "hover:text-white justify-start"
               )}
             >
               <link.icon className="mr-2 h-4 w-4" />
@@ -50,17 +49,18 @@ export function Nav({ links }: NavProps) {
             </Link>
           ) : (
             <Collapsible>
-              <CollapsibleTrigger>
+              <CollapsibleTrigger className="w-full">
                 <div
                   className={cn(
                     buttonVariants({ variant: link.variant, size: "sm" }),
                     link.variant === "default" &&
                       "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                    "justify-start"
+                    "w-full hover:text-white justify-start"
                   )}
                 >
                   <link.icon className="mr-2 h-4 w-4" />
                   <span>{link.title}</span>
+                  <ChevronDown className="ml-auto" />
                 </div>
               </CollapsibleTrigger>
               <CollapsibleContent>
@@ -73,7 +73,7 @@ export function Nav({ links }: NavProps) {
                         buttonVariants({ variant: link.variant, size: "sm" }),
                         link.variant === "default" &&
                           "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                        "ml-4 justify-start flex"
+                        "ml-4 hover:text-white justify-start flex"
                       )}
                     >
                       <link.icon className="inline-block mr-2 h-4 w-4" />
