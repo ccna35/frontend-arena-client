@@ -10,6 +10,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible";
+import { usePathname } from "next/navigation";
 
 interface NavProps {
   links: {
@@ -29,6 +30,7 @@ interface NavProps {
 }
 
 export function Nav({ links }: NavProps) {
+  const pathname = usePathname();
   return (
     <div className="group flex flex-col gap-4 py-2">
       <nav className="grid gap-1 px-2">
@@ -38,7 +40,10 @@ export function Nav({ links }: NavProps) {
               key={link.title}
               href={link.href}
               className={cn(
-                buttonVariants({ variant: link.variant, size: "sm" }),
+                buttonVariants({
+                  variant: pathname === link.href ? "default" : "ghost",
+                  size: "sm",
+                }),
                 link.variant === "default" &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                 "hover:text-white justify-start"
@@ -48,11 +53,14 @@ export function Nav({ links }: NavProps) {
               <span>{link.title}</span>
             </Link>
           ) : (
-            <Collapsible>
+            <Collapsible key={link.title}>
               <CollapsibleTrigger className="w-full">
                 <div
                   className={cn(
-                    buttonVariants({ variant: link.variant, size: "sm" }),
+                    buttonVariants({
+                      variant: pathname === link.href ? "default" : "ghost",
+                      size: "sm",
+                    }),
                     link.variant === "default" &&
                       "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                     "w-full hover:text-white justify-start"
@@ -70,7 +78,10 @@ export function Nav({ links }: NavProps) {
                       key={link.title}
                       href={link.href}
                       className={cn(
-                        buttonVariants({ variant: link.variant, size: "sm" }),
+                        buttonVariants({
+                          variant: pathname === link.href ? "default" : "ghost",
+                          size: "sm",
+                        }),
                         link.variant === "default" &&
                           "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                         "ml-4 hover:text-white justify-start flex"

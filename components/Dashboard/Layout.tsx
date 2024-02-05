@@ -74,21 +74,21 @@ const pages: {
     label: "",
     icon: Send,
     variant: "ghost",
-    href: "/dashboard/challenges",
+    href: "/dashboard/users",
   },
   {
     title: "Submissions",
     label: "23",
     icon: ArchiveX,
     variant: "ghost",
-    href: "/dashboard/challenges",
+    href: "/dashboard/submissions",
   },
   {
     title: "Feedbacks",
     label: "",
     icon: Trash2,
     variant: "ghost",
-    href: "/dashboard/challenges",
+    href: "/dashboard/feedbacks",
   },
 ];
 

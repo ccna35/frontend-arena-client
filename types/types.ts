@@ -9,6 +9,28 @@ export type User = {
   createdAt?: string;
 };
 
+export type Submission = {
+  id?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword?: string;
+  createdAt?: string;
+};
+
+export type Feedback = {
+  id?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword?: string;
+  createdAt?: string;
+};
+
 export type Challenge = {
   id: number;
   challenge_title: string;

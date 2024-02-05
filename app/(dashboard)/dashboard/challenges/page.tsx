@@ -1,15 +1,14 @@
-import CardsDataTable from "@/components/Tables/Table";
+import ChallengesTable from "@/components/Dashboard/Challenges/Table";
 
-const Challenges = () => {
+const Users = () => {
   return (
     <section className="p-8">
       <h2 className="text-xl font-semibold mb-8">
         View the latest challenges here
       </h2>
-      <CardsDataTable />
-      {/* <SimpleTable /> */}
+      <ChallengesTable />
     </section>
   );
 };
 
-export default Challenges;
+export default Users;

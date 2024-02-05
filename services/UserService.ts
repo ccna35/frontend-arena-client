@@ -1,8 +1,8 @@
 import { query } from "@/config/config";
 import { User } from "@/types/types";
 
-const getAllUsers = async (page: number = 0): Promise<User[]> => {
-  const res = await query.get(`users?page=${page}`);
+const getAllUsers = async (): Promise<User[]> => {
+  const res = await query.get("users");
 
   return res.data;
 };
