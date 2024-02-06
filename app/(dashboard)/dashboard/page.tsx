@@ -19,9 +19,6 @@ export default function Dashboard() {
     queryFn: DashboardService.getQuickStats,
   });
 
-  if (isSuccess) {
-    console.log(data);
-  }
   if (isError) {
     console.log(error);
   }

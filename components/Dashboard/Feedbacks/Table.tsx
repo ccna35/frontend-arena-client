@@ -49,18 +49,16 @@ import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { FeedbackService } from "@/services/FeedbackService";
 
-type User = {
+type Feedback = {
   id: number;
-  challenge_id: number;
-  is_private: number;
-  live_link: string;
-  notes: string;
-  repo_link: string;
+  user_id: number;
+  submission_id: number;
+  content: string;
   createdAt: string;
   updated_at: string;
 };
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<Feedback>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -84,25 +82,20 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "user_id",
+    header: "User",
     minSize: 100,
-    cell: ({ row }) => <div>{row.getValue("firstName")}</div>,
+    cell: ({ row }) => <div>{row.getValue("user_id")}</div>,
   },
   {
-    accessorKey: "lastName",
-    header: "Last Name",
-    cell: ({ row }) => <div>{row.getValue("lastName")}</div>,
+    accessorKey: "submission_id",
+    header: "Submission",
+    cell: ({ row }) => <div>{row.getValue("submission_id")}</div>,
   },
   {
-    accessorKey: "username",
-    header: "username",
-    cell: ({ row }) => <div>{row.getValue("username")}</div>,
-  },
-  {
-    accessorKey: "email",
-    header: "email",
-    cell: ({ row }) => <div>{row.getValue("email")}</div>,
+    accessorKey: "content",
+    header: "Content",
+    cell: ({ row }) => <div>{row.getValue("content").substring(0, 10)}</div>,
   },
   {
     accessorKey: "createdAt",
@@ -118,6 +111,26 @@ export const columns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => {
       const formatted = dayjs(row.getValue("createdAt")).format(
+        "MMMM DD, YYYY"
+      );
+
+      return <div className="text-left font-medium">{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: "updated_at",
+    header: ({ column }) => (
+      <Button
+        variant={"ghost"}
+        className="text-right"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Updated At
+        <CaretSortIcon className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const formatted = dayjs(row.getValue("updated_at")).format(
         "MMMM DD, YYYY"
       );
 
@@ -191,8 +204,8 @@ export default function FeedbacksTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Payments</CardTitle>
-        <CardDescription>Manage your payments.</CardDescription>
+        {/* <CardTitle>Payments</CardTitle>
+        <CardDescription>Manage your payments.</CardDescription> */}
       </CardHeader>
       <CardContent>
         <div className="mb-4 flex items-center gap-4">

@@ -1,6 +1,6 @@
 import UsersTable from "@/components/Dashboard/Users/Table";
 
-const Users = () => {
+const page = () => {
   return (
     <section className="p-8">
       <h2 className="text-xl font-semibold mb-8">View the latest users here</h2>
@@ -9,4 +9,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default page;

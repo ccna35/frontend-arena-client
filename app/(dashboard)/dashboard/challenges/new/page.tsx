@@ -1,8 +1,6 @@
 import { NewChallengeForm } from "@/components/Dashboard/Challenges/NewChallenge";
-import Image from "next/image";
-import { useState } from "react";
 
-const NewChallenge = () => {
+const page = () => {
   return (
     <section className="p-8">
       <div className="mb-8">
@@ -13,4 +11,4 @@ const NewChallenge = () => {
   );
 };
 
-export default NewChallenge;
+export default page;

@@ -190,8 +190,8 @@ export default function ChallengesTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Payments</CardTitle>
-        <CardDescription>Manage your payments.</CardDescription>
+        {/* <CardTitle>Payments</CardTitle>
+        <CardDescription>Manage your payments.</CardDescription> */}
       </CardHeader>
       <CardContent>
         <div className="mb-4 flex items-center gap-4">

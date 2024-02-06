@@ -49,6 +49,7 @@ import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { UserService } from "@/services/UserService";
 import { SubmissionService } from "@/services/SubmissionService";
+import { Check, Link, XCircle } from "lucide-react";
 
 type Submission = {
   id: number;
@@ -86,27 +87,39 @@ export const columns: ColumnDef<Submission>[] = [
   },
   {
     accessorKey: "challenge_id",
-    header: "Challenge ID",
+    header: "Challenge",
     minSize: 100,
     cell: ({ row }) => <div>{row.getValue("challenge_id")}</div>,
   },
   {
     accessorKey: "is_private",
-    header: "Is Private?",
+    header: "Private?",
     cell: ({ row }) => {
       const formatted = row.getValue("is_private") == 1;
-      return <Badge>{formatted}</Badge>;
+      return (
+        <div>
+          {formatted ? <Check color="#2ec4b6" /> : <XCircle color="#ef476f" />}
+        </div>
+      );
     },
   },
   {
     accessorKey: "live_link",
     header: "Live Link",
-    cell: ({ row }) => <div>{row.getValue("live_link").substring(0, 20)}</div>,
+    cell: ({ row }) => (
+      <a href={row.getValue("live_link")} target="_blank">
+        <Link />
+      </a>
+    ),
   },
   {
     accessorKey: "repo_link",
     header: "Repo Link",
-    cell: ({ row }) => <div>{row.getValue("repo_link")}</div>,
+    cell: ({ row }) => (
+      <a href={row.getValue("repo_link")} target="_blank">
+        <Link />
+      </a>
+    ),
   },
   {
     accessorKey: "createdAt",
@@ -128,26 +141,7 @@ export const columns: ColumnDef<Submission>[] = [
       return <div className="text-left font-medium">{formatted}</div>;
     },
   },
-  {
-    accessorKey: "updated_at",
-    header: ({ column }) => (
-      <Button
-        variant={"ghost"}
-        className="text-right"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Updated At
-        <CaretSortIcon className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-      const formatted = dayjs(row.getValue("updated_at")).format(
-        "MMMM DD, YYYY"
-      );
 
-      return <div className="text-left font-medium">{formatted}</div>;
-    },
-  },
   {
     id: "actions",
     enableHiding: false,
@@ -215,8 +209,8 @@ export default function SubmissionsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Payments</CardTitle>
-        <CardDescription>Manage your payments.</CardDescription>
+        {/* <CardTitle>Payments</CardTitle>
+        <CardDescription>Manage your payments.</CardDescription> */}
       </CardHeader>
       <CardContent>
         <div className="mb-4 flex items-center gap-4">

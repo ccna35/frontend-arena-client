@@ -1,6 +1,6 @@
 import ChallengesTable from "@/components/Dashboard/Challenges/Table";
 
-const Users = () => {
+const page = () => {
   return (
     <section className="p-8">
       <h2 className="text-xl font-semibold mb-8">
@@ -11,4 +11,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default page;

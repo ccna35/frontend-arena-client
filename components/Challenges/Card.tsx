@@ -35,7 +35,12 @@ const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
     <Card className="rounded-md overflow-hidden">
       <CardHeader className="p-0">
         <div className="h-48 relative">
-          <Image src={featured_image} alt={challenge_title} fill />
+          <Image
+            src={featured_image}
+            alt={challenge_title}
+            fill
+            className="object-cover"
+          />
         </div>
         <div className="p-6">
           <CardTitle className="text-xl font-medium">
