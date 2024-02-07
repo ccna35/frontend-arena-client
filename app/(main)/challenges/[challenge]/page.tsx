@@ -4,9 +4,9 @@ import ChallengeCard from "@/components/Challenges/Card";
 import { ChallengeService } from "@/services/ChallengeService";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Challenges() {
+export default function ChallengePage() {
   const { data, isError, error, isSuccess } = useQuery({
-    queryKey: ["challenges"],
+    queryKey: ["challenge"],
     queryFn: ChallengeService.getAllChallenges,
   });
 

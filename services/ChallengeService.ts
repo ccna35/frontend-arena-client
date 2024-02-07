@@ -23,6 +23,14 @@ const getAllChallenges = async (): Promise<Challenge[]> => {
   return res.data;
 };
 
+const getOneChallenge = async (): Promise<Challenge[]> => {
+  const res = await query.get("/challenges");
+
+  // console.log(res.data);
+
+  return res.data;
+};
+
 const createChallenge = async (values: FormData): Promise<Challenge> => {
   const res = await query.post("/challenges", values, {
     headers: {
