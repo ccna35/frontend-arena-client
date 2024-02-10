@@ -10,6 +10,9 @@ export default function Challenges() {
     queryFn: ChallengeService.getAllChallenges,
   });
 
+  if (isSuccess) {
+    console.log(data);
+  }
   if (isError) {
     console.log(error);
   }
@@ -17,9 +20,9 @@ export default function Challenges() {
   return (
     <main className="py-16">
       <div className="container">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-start">
-          {data?.map(({ id, ...rest }) => {
-            return <ChallengeCard key={id} challenge={rest} />;
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+          {data?.map((challenge) => {
+            return <ChallengeCard key={challenge.id} challenge={challenge} />;
           })}
         </div>
       </div>

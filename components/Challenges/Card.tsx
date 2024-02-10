@@ -11,9 +11,10 @@ import { Challenge } from "@/types/types";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type ChallengeCardProps = {
-  challenge: Omit<Challenge, "id">;
+  challenge: Challenge;
 };
 
 const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
@@ -28,23 +29,25 @@ const ChallengeCard = ({ challenge }: ChallengeCardProps) => {
     figma,
     languages,
     levelName,
+    id,
   } = challenge;
-  console.log(featured_image);
 
   return (
     <Card className="rounded-md overflow-hidden">
       <CardHeader className="p-0">
         <div className="h-48 relative">
-          <Image
-            src={featured_image}
-            alt={challenge_title}
-            fill
-            className="object-cover"
-          />
+          <Link href={"/challenges/" + id}>
+            <Image
+              src={featured_image}
+              alt={challenge_title}
+              fill
+              className="object-cover"
+            />
+          </Link>
         </div>
         <div className="p-6">
           <CardTitle className="text-xl font-medium">
-            {challenge_title}
+            <Link href={"/challenges/" + id}>{challenge_title}</Link>
           </CardTitle>
           <CardDescription>{brief_description}</CardDescription>
         </div>

@@ -18,17 +18,13 @@ type NewChallenge = {
 const getAllChallenges = async (): Promise<Challenge[]> => {
   const res = await query.get("/challenges");
 
-  // console.log(res.data);
-
   return res.data;
 };
 
-const getOneChallenge = async (): Promise<Challenge[]> => {
-  const res = await query.get("/challenges");
+const getOneChallenge = async (id: string): Promise<Challenge> => {
+  const res = await query.get("/challenges/" + id);
 
-  // console.log(res.data);
-
-  return res.data;
+  return res.data[0];
 };
 
 const createChallenge = async (values: FormData): Promise<Challenge> => {
@@ -46,4 +42,5 @@ const createChallenge = async (values: FormData): Promise<Challenge> => {
 export const ChallengeService = {
   getAllChallenges,
   createChallenge,
+  getOneChallenge,
 };
